@@ -1,8 +1,10 @@
+require 'date'
+
 class Account
 
   def initialize(balance)
     @balance = balance
-    @date = date
+    @statement = []
   end
 
   def get_balance
@@ -11,15 +13,20 @@ class Account
 
   def deposit(money)
     @balance += money
-    @date
+    date
   end
 
   def withdraw(money)
-    @balance -= money
+    if @balance < money
+      raise "Withdrawing more than you have"
+    else
+      @balance -= money
+    end
   end
 
-  # def date
-  #   Time.now
-  # end
+  def date
+    Date.today
+  end
 
 end
+

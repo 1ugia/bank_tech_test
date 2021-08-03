@@ -48,7 +48,16 @@ Therefor, Bank replies on Account.
 
 User stories:
 ```
+
 As a user, 
-I am able to put a deposit in my account.
+I want to be able to open an account from a Bank.
+
+As a user, 
+To keep my money safe,
+I want to deposit my money in my account.
+
+As a user, 
+I want to be able to withdraw money from my account.
+
 
 ```
