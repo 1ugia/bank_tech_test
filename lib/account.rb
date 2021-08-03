@@ -32,10 +32,10 @@ class Account
   end
 
   def statement
-    i = @transactions.length
-    while i >= 0
+    i = 0
+    while i <= @transactions.length
       puts @transactions[i]
-      i -= 1
+      i += 1
     end
   end
 
