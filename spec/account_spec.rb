@@ -3,9 +3,11 @@ require 'date'
 
 describe Account do
   before(:each) do
-    @account = Account.new(0)
+    @account = Account.new
   end
-    
+  before(:all) do
+    @transactions = []
+  end
  
   it 'starts account with zero' do
     expect(@account.get_balance).to eq(0)
@@ -35,5 +37,26 @@ describe Account do
       expect(@account.date).to eq(Date.today)
     end
   end
+
+  context '#transactions' do
+    it 'saves a transaction' do
+      @account.deposit(100)
+      expect(@account.transactions).to eq( [["2021-08-03||     ||100||100"]] )
+    end
+    
+    it 'saves records of transactions' do
+      @account.deposit(100)
+      @account.withdraw(50)
+      expect(@account.transactions).to eq( [["2021-08-03||     ||100||100"], ["2021-08-03||50||     ||50"]] )
+    end
+  end
+
+  # context '#statement' do
+  #   it 'prints out statement' do
+  #     @account.deposit(100)
+  #     @account.withdraw(50)
+  #     expect(@account.statement).to eq( [] )
+  #   end
+  # end
 
 end
