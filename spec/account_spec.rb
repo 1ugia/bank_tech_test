@@ -1,4 +1,7 @@
-require './lib/account.rb'
+# frozen_string_literal: true
+
+# require 'simplecov'
+require './lib/account'
 require 'date'
 
 describe Account do
@@ -8,15 +11,15 @@ describe Account do
   before(:all) do
     @transactions = []
   end
- 
+
   it 'starts account with zero' do
-    expect(@account.get_balance).to eq(0)
+    expect(@account.balance).to eq(0)
   end
-  
+
   context '#deposit' do
     it 'lets you deposit monez' do
       @account.deposit(50)
-      expect(@account.get_balance).to eq(50)
+      expect(@account.balance).to eq(50)
     end
   end
 
@@ -24,11 +27,11 @@ describe Account do
     it 'lets you withdraw' do
       @account.deposit(50)
       @account.withdraw(20)
-      expect(@account.get_balance).to eq(30)
+      expect(@account.balance).to eq(30)
     end
 
     it 'raises error if you withdraw over the deposit amount' do
-      expect {@account.withdraw(50)}.to raise_error "Withdrawing more than you have"
+      expect { @account.withdraw(50) }.to raise_error 'Withdrawing more than you have'
     end
   end
 
@@ -41,13 +44,15 @@ describe Account do
   context '#transactions' do
     it 'saves a transaction' do
       @account.deposit(100)
-      expect(@account.transactions).to eq( [["2021-08-03||     ||100||100"]] )
+      expect(@account.transactions).to eq([["#{Date.today}" + '||     ||100||100']])
     end
-    
+
     it 'saves records of transactions' do
       @account.deposit(100)
       @account.withdraw(50)
-      expect(@account.transactions).to eq( [["2021-08-03||     ||100||100"], ["2021-08-03||50||     ||50"]] )
+      expect(@account.transactions).to eq(
+        [["#{Date.today}" + '||     ||100||100'], ["#{Date.today}" + '||50||     ||50']]
+      )
     end
   end
 
@@ -58,5 +63,4 @@ describe Account do
   #     expect(@account.statement).to eq( [] )
   #   end
   # end
-
 end

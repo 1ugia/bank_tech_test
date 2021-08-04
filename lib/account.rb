@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
 require 'date'
 
+# :nodoc:
 class Account
-  attr_reader :transactions
+  attr_reader :transactions, :balance
+
   START = 0
 
   def initialize
@@ -9,24 +13,17 @@ class Account
     @transactions = []
   end
 
-  def get_balance
-    @balance
-  end
-
   def deposit(money)
     @balance += money
-    @transactions << ["#{date}" + '||' + '     ' + '||' + "#{money}" + '||' + "#{@balance}"]
+    @transactions << ["#{date}"+ '||' + '     ' + '||' + "#{money}" + '||' + "#{@balance}"]
   end
-  
+
   def withdraw(money)
-    if @balance < money
-      raise "Withdrawing more than you have"
-    else
-      @balance -= money
-      @transactions << ["#{date}" + '||' + "#{money}" + '||' + '     ' + '||' + "#{@balance}"]
-    end
+    raise 'Withdrawing more than you have' if @balance < money
+    @balance -= money
+    @transactions << ["#{date}" + '||' + "#{money}" + '||' + '     ' + '||' + "#{@balance}"]
   end
-  
+
   def date
     Date.today
   end
@@ -38,6 +35,4 @@ class Account
       i += 1
     end
   end
-
 end
-
