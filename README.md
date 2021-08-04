@@ -44,6 +44,10 @@ Dependancies:
 - Account catches the transaction data when the user deposits / withdraws. 
 - Bank should allow you to print your stransaction made. 
 
+Steps:
+- Follow the User Stories. 
+- Next, divide the classes and tests
+
 User stories:
 ```
 
