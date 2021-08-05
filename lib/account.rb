@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative './printer.rb'
 require 'date'
 
 # :nodoc:
@@ -8,9 +9,10 @@ class Account
 
   START = 0
 
-  def initialize
+  def initialize(printer = Printer.new)
     @balance = START
     @transactions = []
+    @printer = printer
   end
 
   def deposit(money)
@@ -28,11 +30,15 @@ class Account
     Date.today
   end
 
+  # def statement
+  #   i = 0
+  #   while i <= @transactions.length
+  #     puts @transactions[i]
+  #     i += 1
+  #   end
+  # end
+
   def statement
-    i = 0
-    while i <= @transactions.length
-      puts @transactions[i]
-      i += 1
-    end
+    @printer.print(@transactions)
   end
 end
